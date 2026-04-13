@@ -1,0 +1,58 @@
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #2f3542;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  font-weight: bold;
+}
+
+.filter-body {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #f1f2f6;
+  border-radius: 0 0 12px 12px;
+}
+
+.filter-label {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Красивый слайдер */
+.red-slider {
+  width: 100%;
+  accent-color: #ff4757;
+  margin-bottom: 2rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Кнопки */
+.btn-reset, .btn-apply {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.btn-reset { background: #f1f2f6; color: #57606f; }
+.btn-apply { background: #2f3542; color: #fff; }
+.btn-apply:hover { background: #ff4757; }

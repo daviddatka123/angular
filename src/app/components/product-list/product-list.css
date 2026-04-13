@@ -1,0 +1,105 @@
+/* styles live in app.css — this file intentionally left minimal */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 25px; 
+  padding: 2rem 0;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  border: 1px solid #f1f2f6;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 200px;
+  background: #f9f9f9;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-details {
+  padding: 1.5rem;
+}
+
+.card-details h5 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: #2f3542;
+}
+
+.spiciness {
+  font-size: 0.85rem;
+  color: #ff4757;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.dietary-info {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.success { color: #2ed573; }
+.success .dot { background: #2ed573; }
+
+.danger { color: #a4b0be; }
+.danger .dot { background: #ced6e0; }
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f2f6;
+  padding-top: 1rem;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #2f3542;
+}
+
+.btn-add-to-cart {
+  background: #ff4757;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add-to-cart:hover {
+  background: #ff6b81;
+}

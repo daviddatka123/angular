@@ -1,74 +1,25 @@
-<app-header></app-header>
+<app-header />
 
 <main class="page-layout">
   <header class="categories-bar">
-    <div class="categories-container">
-      <button (click)="filterCategories('all')" class="category-btn" [class.active]="selectedId === 'all'">
-        All
-      </button>
-      @for (item of AllCategories; track item.id) {
-        <button (click)="filterCategories(item.id)" class="category-btn" [class.active]="selectedId === item.id">
-          {{ item.name }}
-        </button>
-      }
-    </div>
+    <app-category-bar
+      [categories]="categories"
+      [selectedId]="filter.categoryId"
+      (categorySelected)="onCategorySelected($event)"
+    />
   </header>
 
   <div class="main-content-area">
-    
     <aside class="filter-sidebar">
-      <div class="filter-header">
-        <span>Filter</span>
-        <span class="filter-icon">▼</span>
-      </div>
-      <div class="filter-body">
-        <p class="filter-label">Spiciness: {{ spiciness === 0 ? 'Not Chosen' : spiciness }}</p>
-        <input type="range" min="0" max="4" [(ngModel)]="spiciness" (input)="applyFilters()" class="slider red-slider">
-
-        <div class="checkbox-group">
-          <label class="custom-checkbox gray-checkbox">
-            <input type="checkbox" [(ngModel)]="noNuts" (change)="applyFilters()">
-            <span>No Nuts</span>
-          </label>
-          <label class="custom-checkbox gray-checkbox">
-            <input type="checkbox" [(ngModel)]="vegetarianOnly" (change)="applyFilters()">
-            <span>Vegetarian Only</span>
-          </label>
-        </div>
-
-        <button class="btn-reset" (click)="resetFilters()">RESET</button>
-        <button class="btn-apply" (click)="applyFilters()">APPLY FILTER</button>
-      </div>
+      <app-filter-sidebar
+        [filter]="filter"
+        (filterChange)="onFilterChange($event)"
+        (reset)="onReset()"
+      />
     </aside>
 
     <section class="products-container">
-      <div class="products-grid">
-        @for (item of filteredProducts; track item.id) {
-          <div class="product-card">
-            <div class="image-wrapper">
-              <img [src]="item.image" [alt]="item.name">
-            </div>
-            <div class="card-details">
-              <h5>{{ item.name }}</h5>
-              <p class="spiciness">Spiciness: {{ item.spiciness }}</p>
-              
-              <div class="dietary-info">
-                <span class="indicator" [class.danger]="item.nuts" [class.success]="!item.nuts">
-                  <i class="dot"></i> Nuts
-                </span>
-                <span class="indicator" [class.danger]="!item.vegetarian" [class.success]="item.vegetarian">
-                  <i class="dot"></i> Vegetarian
-                </span>
-              </div>
-
-              <div class="card-footer">
-                <span class="price">${{ item.price | number: '1.1-2' }}</span>
-                <button class="btn-add-to-cart">Add to cart</button>
-              </div>
-            </div>
-          </div>
-        }
-      </div>
+      <app-product-list [products]="filteredProducts" />
     </section>
   </div>
 </main>

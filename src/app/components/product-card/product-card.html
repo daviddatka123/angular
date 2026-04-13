@@ -1,0 +1,23 @@
+<div class="product-card">
+  <div class="image-wrapper">
+    <img [src]="product.image" [alt]="product.name">
+  </div>
+  <div class="card-details">
+    <h5>{{ product.name }}</h5>
+    <p class="spiciness">Spiciness: {{ product.spiciness }}</p>
+
+    <div class="dietary-info">
+      <span class="indicator" [class.danger]="product.nuts" [class.success]="!product.nuts">
+        <i class="dot"></i> Nuts
+      </span>
+      <span class="indicator" [class.danger]="!product.vegetarian" [class.success]="product.vegetarian">
+        <i class="dot"></i> Vegetarian
+      </span>
+    </div>
+
+    <div class="card-footer">
+  <span class="price">${{ product.price }}</span>
+  <button class="btn-add-to-cart" (click)="onAddToCart()">
+    Add to cart
+  </button>
+</div>

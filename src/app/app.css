@@ -1,60 +1,331 @@
-/* --- მთლიანი განლაგება --- */
-.page-layout { display: flex; flex-direction: column; width: 100%; }
-.main-content-area { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; width: 100%; }
+/* Overall layout */
+.page-layout { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* --- კატეგორიები (ზედა) --- */
-.categories-bar { background: #fff; padding: 15px 0; border-bottom: 2px solid #ddd; }
-.categories-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-.category-btn { padding: 8px 15px; border: 1px solid #ddd; background: #fff; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; }
-.category-btn.active { background: #ff0000; color: #fff; border-color: #ff0000; }
+/* Categories (top bar) */
+.categories-bar {
+  background: var(--ink);
+  border-bottom: 3px solid var(--accent);
+  position: sticky;
+  top: 72px;
+  z-index: 9;
+}
 
-/* --- ფილტრი (Sidebar) --- */
-.filter-sidebar { flex: 0 0 280px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 20px; align-self: flex-start; }
-.filter-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 20px; margin-bottom: 20px; }
-.slider.red-slider { width: 100%; accent-color: red; margin: 10px 0 20px; }
-.checkbox-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-.custom-checkbox.gray-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; color: #666; }
-.btn-reset, .btn-apply { width: 100%; padding: 12px; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; }
-.btn-reset { background: #d9534f; color: white; margin-bottom: 10px; }
-.btn-apply { background: #ff0000; color: white; border-bottom: 4px solid #b30000; }
+.categories-container {
+  display: flex;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 48px;
+  overflow-x: auto;
+  gap: 0;
+}
 
-/* --- პროდუქტები (GRID) --- */
+.category-btn {
+  padding: 14px 22px;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  color: rgba(245,239,228,0.5);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all var(--t);
+}
+
+.category-btn:hover {
+  color: var(--bg);
+  background: rgba(255,255,255,0.05);
+}
+
+.category-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+/* Main area */
+.main-content-area {
+  display: flex;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 40px 48px;
+  gap: 36px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* Filter sidebar */
+.filter-sidebar {
+  flex: 0 0 230px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  align-self: flex-start;
+  position: sticky;
+  top: 130px;
+  box-shadow: var(--shadow);
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.filter-icon { color: var(--muted); font-size: 11px; font-style: normal; }
+
+.filter-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.slider.red-slider {
+  width: 100%;
+  accent-color: var(--accent);
+  margin: 0 0 24px;
+  cursor: pointer;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 24px;
+}
+
+.custom-checkbox.gray-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink2);
+  transition: color var(--t);
+}
+
+.custom-checkbox.gray-checkbox:hover { color: var(--ink); }
+
+.custom-checkbox input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.btn-reset, .btn-apply {
+  width: 100%;
+  padding: 11px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all var(--t);
+}
+
+.btn-reset {
+  background: var(--bg-soft);
+  color: var(--muted);
+  border: 2px solid var(--border);
+  margin-bottom: 10px;
+}
+
+.btn-reset:hover {
+  color: var(--ink2);
+  border-color: var(--border2);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-apply {
+  background: var(--accent);
+  color: var(--bg);
+  border: 2px solid var(--accent2);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-apply:hover {
+  background: var(--accent2);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow);
+}
+
+/* Products */
 .products-container { flex: 1; }
-.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
 
-/* --- ბარათის ვიზუალი (ზუსტად სურათისნაირი) --- */
-.product-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: 0.3s; }
-.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-.image-wrapper { width: 100%; height: 220px; background: #eaeaea; display: flex; align-items: center; justify-content: center; }
-.product-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
 
-.card-details { padding: 15px; text-align: left; }
-.card-details h5 { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #333; }
-.spiciness { font-size: 14px; color: #777; margin-bottom: 10px; }
+/* Card */
+.product-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+
+.product-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 200px;
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  filter: sepia(15%) saturate(90%);
+}
+
+.product-card:hover .image-wrapper img { transform: scale(1.04); }
+
+.card-details {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-details h5 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 19px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.spiciness {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
 
 /* Dietary Indicators */
-.dietary-info { display: flex; gap: 10px; font-size: 12px; color: #666; margin-bottom: 15px; }
-.indicator { display: flex; align-items: center; gap: 5px; }
-.indicator .dot { width: 8px; height: 8px; border-radius: 50%; }
-.indicator.danger .dot { background-color: #d9534f; }
-.indicator.success .dot { background-color: #5cb85c; }
+.dietary-info { display: flex; gap: 8px; margin-bottom: 16px; }
 
-/* Card Footer (Price & Button) */
-.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid #eee; padding-top: 10px; }
-.price { font-size: 22px; font-weight: bold; color: #333; }
-.btn-add-to-cart { padding: 8px 12px; border: 1px solid #000; background: #fff; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; text-transform: uppercase; }
-.btn-add-to-cart:hover { background: #000; color: #fff; }
-
-/* --- რესპონსივი (320px და პატარა ეკრანები) --- */
-@media (max-width: 1024px) {
-  .main-content-area { flex-direction: column; align-items: center; gap: 20px; }
-  .filter-sidebar { width: 100%; max-width: 400px; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  background: var(--bg);
 }
-@media (max-width: 600px) {
+
+.indicator .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+.indicator.danger { border-color: #e0b8a8; color: var(--accent); background: var(--accent-bg); }
+.indicator.danger .dot { background: var(--accent); }
+.indicator.success { border-color: #b4d0bc; color: var(--green); background: var(--green-bg); }
+.indicator.success .dot { background: var(--green); }
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 2px dashed var(--border);
+}
+
+.price {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.btn-add-to-cart {
+  padding: 9px 16px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all var(--t);
+}
+
+.btn-add-to-cart:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Footer */
+.main-footer {
+  background: var(--ink);
+  color: var(--muted);
+  text-align: center;
+  padding: 22px;
+  margin-top: auto;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-top: 3px solid var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .main-content-area { padding: 28px 24px; }
+  .header, .categories-container { padding-left: 24px; padding-right: 24px; }
+}
+
+@media (max-width: 768px) {
+  .main-content-area { flex-direction: column; }
+  .filter-sidebar { flex: unset; width: 100%; position: static; }
+}
+
+@media (max-width: 500px) {
   .products-grid { grid-template-columns: 1fr; }
 }
-
-/* --- ფუტერი (ზუსტი წითელი) --- */
-.main-footer { background: #ff0000; color: white; text-align: center; padding: 15px; margin-top: 40px; }
-.main-footer p { margin: 0; font-size: 14px; }

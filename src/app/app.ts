@@ -1,71 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Toolsservice } from './toolsservice';
-import { Header } from './header/header';
+import { ProductService } from './services/product.service';
+import { CategoryService } from './services/category.service';
+import { FilterService } from './services/filter.service';
+import { Product } from './models/product.model';
+import { Category } from './models/category.model';
+import { ProductFilter, DEFAULT_FILTER } from './models/filter.model';
+import { HeaderComponent } from './components/header/header';
+import { CategoryBarComponent } from './components/category-bar/category-bar';
+import { FilterSidebarComponent } from './components/filter-sidebar/filter-sidebar';
+import { ProductListComponent } from './components/product-list/product-list';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, Header],
+  imports: [
+    HeaderComponent,
+    CategoryBarComponent,
+    FilterSidebarComponent,
+    ProductListComponent,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App implements OnInit {
-  public AllProducts: any[] = [];
-  public filteredProducts: any[] = [];
-  public AllCategories: any[] = [];
-  public selectedId: any = 'all';
-  public spiciness: number = 0;
-  public noNuts: boolean = false;
-  public vegetarianOnly: boolean = false;
+  allProducts: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: Category[] = [];
+  filter: ProductFilter = { ...DEFAULT_FILTER };
 
-  constructor(public tools: Toolsservice) {}
-
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private filterService: FilterService
+  ) {}
 
   ngOnInit() {
-    this.allCards();
-    this.allCategoriesFunc();
-  }
+    this.productService.getAll().subscribe((data) => {
+      this.allProducts = data;
+      this.applyFilter();
+    });
 
-  allCards() {
-    this.tools.getAllProducts().subscribe((data: any) => {
-      this.AllProducts = data;
-      this.applyFilters();
+    this.categoryService.getAll().subscribe((data) => {
+      this.categories = data;
     });
   }
 
-  allCategoriesFunc() {
-    this.tools.getCategories().subscribe((data: any) => {
-      this.AllCategories = data;
-    });
+  onCategorySelected(id: number | 'all') {
+    this.filter = { ...this.filter, categoryId: id };
+    this.applyFilter();
   }
 
-  filterCategories(id: any) {
-    this.selectedId = id;
-    this.applyFilters();
+  onFilterChange(updated: ProductFilter) {
+    this.filter = updated;
+    this.applyFilter();
   }
 
-  applyFilters() {
-    if (!this.AllProducts || this.AllProducts.length === 0) {
-      return;
-    }
-
-    this.filteredProducts = this.AllProducts.filter((p: any) => {
-      const categoryMatch = this.selectedId === 'all' || p.categoryId === this.selectedId;
-      const spicinessMatch = this.spiciness === 0 || p.spiciness <= this.spiciness;
-      const nutsMatch = !this.noNuts || p.nuts === false;
-      const vegMatch = !this.vegetarianOnly || p.vegetarian === true || p.vegetarian === 1;
-
-      return categoryMatch && spicinessMatch && nutsMatch && vegMatch;
-    });
+  onReset() {
+    this.filter = { ...DEFAULT_FILTER };
+    this.filteredProducts = [...this.allProducts];
   }
 
-  resetFilters() {
-    this.spiciness = 0;
-    this.noNuts = false;
-    this.vegetarianOnly = false;
-    this.selectedId = 'all';
-    this.filteredProducts = [...this.AllProducts];
+  private applyFilter() {
+    this.filteredProducts = this.filterService.apply(this.allProducts, this.filter);
   }
 }

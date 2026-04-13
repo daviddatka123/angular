@@ -6,11 +6,6 @@
 
   <nav class="nav-links">
     <a routerLink="/" class="nav-item">Home</a>
-    <div class="cart-container">
+    <div class="cart-container" routerLink="/cart">
       <div class="cart-badge">
-        <span>Cart</span>
-      </div>
-      <img src="assets/scooter-icon.png" alt="Delivery" class="scooter-icon">
-    </div>
-  </nav>
-</header>
+        <span>Cart ({{ cartService.items().length }})</span>
