@@ -1,20 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product.model';
 import { ProductFilter } from '../models/filter.model';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class FilterService {
-  apply(products: Product[], filter: ProductFilter): Product[] {
-    return products.filter((p) => {
-      const categoryMatch =
-        filter.categoryId === 'all' || p.categoryId === filter.categoryId;
-      const spicinessMatch =
-        filter.spiciness === 0 || p.spiciness <= filter.spiciness;
-      const nutsMatch = !filter.noNuts || p.nuts === false;
-      const vegMatch =
-        !filter.vegetarianOnly || p.vegetarian === true;
+  private initialFilter: ProductFilter = {
+    categoryId: 'all',
+    search: '',
+    spiciness: undefined,
+    noNuts: false,
+    vegetarianOnly: false
+  };
 
-      return categoryMatch && spicinessMatch && nutsMatch && vegMatch;
-    });
+
+  private filterSubject = new BehaviorSubject<ProductFilter>(this.initialFilter);
+  
+
+  filter$ = this.filterSubject.asObservable();
+
+  constructor() { }
+
+  updateFilter(newFilter: Partial<ProductFilter>) {
+    const currentFilter = this.filterSubject.value;
+    this.filterSubject.next({ ...currentFilter, ...newFilter });
+  }
+
+  resetFilter() {
+    this.filterSubject.next(this.initialFilter);
+  }
+
+  
+  getCurrentFilterValue(): ProductFilter {
+    return this.filterSubject.value;
   }
 }

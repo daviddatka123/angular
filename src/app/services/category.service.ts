@@ -5,15 +5,18 @@ import { Category } from '../models/category.model';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private readonly BASE_URL = 'https://restaurant.stepprojects.ge/api/Categories';
+  private apiUrl = 'https://restaurant.stepprojects.ge/api/Categories';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.BASE_URL}/GetAll`);
+    return this.http.get<Category[]>(`${this.apiUrl}/GetAll`);
   }
+getCategories() {
+  return this.http.get<any[]>(this.apiUrl);
+}
 
   getById(id: number): Observable<Category> {
-    return this.http.get<Category>(`${this.BASE_URL}/GetCategory/${id}`);
+    return this.http.get<Category>(`${this.apiUrl}/GetCategory/${id}`);
   }
 }
