@@ -1,30 +1,21 @@
 <app-header></app-header>
 
 <main class="page-layout">
-  @if (isHomePage()) {
     <header class="categories-bar">
       <app-category-bar 
-        [categories]="categories" 
-        [selectedId]="filter.categoryId"
+        [categories]="categories()" 
+        [selectedId]="filter().categoryId"
         (categorySelected)="onCategorySelected($event)" />
     </header>
 
     <div class="main-content-area">
-      <aside class="filter-sidebar">
-        <app-filter-sidebar 
-          [filter]="filter"
-          (filterChange)="onFilterChange($event)"
-          (reset)="onReset()" />
-      </aside>
-
-      <section class="products-container">
-        <app-product-list [products]="filteredProducts" />
-      </section>
-    </div>
-  }
+     <aside class="filter-sidebar">
+  <app-filter-sidebar [filter]="filter()" ... />
+  <app-product-list [products]="filteredProducts()" />
+</aside>
 
   <router-outlet></router-outlet>
-</main>
+
 
 <footer class="main-footer">
   <p>&copy; Step Ordering 2026, All rights reserved</p>

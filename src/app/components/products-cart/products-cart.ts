@@ -13,15 +13,14 @@ import { CartService } from '../../services/cart.service';
 export class ProductsCartComponent {
   constructor(public cartService: CartService) {}
 
-
- increaseQuantity(item: any) {
-  this.cartService.addToCart(item);
-}
+  increaseQuantity(item: any) {
+    this.cartService.addToCart(item);
+  }
 
   decreaseQuantity(item: any) {
+    // თუ სერვისში გაქვს მეთოდი quantity-სთვის, გამოიძახე ის
     if (item.quantity > 1) {
-      item.quantity--;
-      console.log('Decrease quantity for:', item);
+    } else {
     }
   }
 }

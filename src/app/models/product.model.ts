@@ -6,5 +6,5 @@ export interface Product {
   spiciness: number;
   nuts: boolean;
   vegetarian: boolean;
-  categoryId: number;
+  categoryId: number; 
 }

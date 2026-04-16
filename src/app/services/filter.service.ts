@@ -1,38 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ProductFilter } from '../models/filter.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
   private initialFilter: ProductFilter = {
-    categoryId: 'all',
+    categoryId: null,
     search: '',
-    spiciness: undefined,
+    spiciness: 0,
     noNuts: false,
     vegetarianOnly: false
   };
 
-
-  private filterSubject = new BehaviorSubject<ProductFilter>(this.initialFilter);
   
-
-  filter$ = this.filterSubject.asObservable();
-
-  constructor() { }
+  filter = signal<ProductFilter>(this.initialFilter);
 
   updateFilter(newFilter: Partial<ProductFilter>) {
-    const currentFilter = this.filterSubject.value;
-    this.filterSubject.next({ ...currentFilter, ...newFilter });
+    this.filter.update(current => ({ ...current, ...newFilter }));
   }
 
   resetFilter() {
-    this.filterSubject.next(this.initialFilter);
-  }
-
-  
-  getCurrentFilterValue(): ProductFilter {
-    return this.filterSubject.value;
+    this.filter.set(this.initialFilter);
   }
 }

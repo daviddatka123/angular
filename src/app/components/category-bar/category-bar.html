@@ -1,10 +1,13 @@
-<div class="categories-container">
-  <button (click)="select('all')" class="category-btn" [class.active]="selectedId === 'all'">
-    All
+<button (click)="select('all')" 
+        class="category-btn" 
+        [class.active]="selectedId === null">
+  All
+</button>
+
+@for (category of categories; track category.id) {
+  <button (click)="select(category.id)" 
+          class="category-btn" 
+          [class.active]="selectedId === category.id">
+    {{ category.name }}
   </button>
-  @for (cat of categories; track cat.id) {
-    <button (click)="select(cat.id)" class="category-btn" [class.active]="selectedId === cat.id">
-      {{ cat.name }}
-    </button>
-  }
-</div>
+}

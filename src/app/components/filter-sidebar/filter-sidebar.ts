@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProductFilter, DEFAULT_FILTER } from '../../models/filter.model';
+import { ProductFilter } from '../../models/filter.model';
 
 @Component({
   selector: 'app-filter-sidebar',
@@ -10,7 +10,14 @@ import { ProductFilter, DEFAULT_FILTER } from '../../models/filter.model';
   styleUrl: './filter-sidebar.css',
 })
 export class FilterSidebarComponent {
-  @Input() filter: ProductFilter = { ...DEFAULT_FILTER };
+  @Input() filter: ProductFilter = {
+    categoryId: 'number',
+    search: '',
+    spiciness: 0,
+    noNuts: false,
+    vegetarianOnly: false
+  };
+
   @Output() filterChange = new EventEmitter<ProductFilter>();
   @Output() reset = new EventEmitter<void>();
 
@@ -20,5 +27,4 @@ export class FilterSidebarComponent {
 
   onReset() {
     this.reset.emit();
-  }
 }

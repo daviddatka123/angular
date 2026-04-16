@@ -1,5 +1,5 @@
 export interface ProductFilter {
-  categoryId: number | 'all';
+  categoryId: number | null;
   search: string;
   spiciness?: number;
   noNuts?: boolean;

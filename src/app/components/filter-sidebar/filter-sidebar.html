@@ -8,6 +8,7 @@
   </p>
   <input
     type="range" min="0" max="4"
+    name="spiciness"
     [(ngModel)]="filter.spiciness"
     (input)="onChange()"
     class="slider red-slider"
@@ -15,11 +16,11 @@
 
   <div class="checkbox-group">
     <label class="custom-checkbox gray-checkbox">
-      <input type="checkbox" [(ngModel)]="filter.noNuts" (change)="onChange()">
+      <input type="checkbox" name="noNuts" [(ngModel)]="filter.noNuts" (change)="onChange()">
       <span>No Nuts</span>
     </label>
     <label class="custom-checkbox gray-checkbox">
-      <input type="checkbox" [(ngModel)]="filter.vegetarianOnly" (change)="onChange()">
+      <input type="checkbox" name="vegetarianOnly" [(ngModel)]="filter.vegetarianOnly" (change)="onChange()">
       <span>Vegetarian Only</span>
     </label>
   </div>

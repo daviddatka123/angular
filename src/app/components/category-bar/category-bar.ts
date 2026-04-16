@@ -11,10 +11,11 @@ import { Category } from '../../models/category.model';
 })
 export class CategoryBarComponent {
   @Input() categories: Category[] = [];
-  @Input() selectedId: number | 'all' = 'all';
-  @Output() categorySelected = new EventEmitter<number | 'all'>();
+  @Input() selectedId: number | null = null;
+  @Output() categorySelected = new EventEmitter<number | null>();
 
   select(id: number | 'all') {
-    this.categorySelected.emit(id);
-  }
+    const value = id === 'all' ? null : id;
+    this.categorySelected.emit(value);
+  } 
 }

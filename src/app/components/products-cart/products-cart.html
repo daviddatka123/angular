@@ -22,9 +22,9 @@
               <span>{{ item.quantity }}</span>
               <button (click)="increaseQuantity(item)">+</button>
             </div>
-            <button class="remove-btn" (click)="cartService.removeFromCart(item.id)">
+            
               🗑️
-            </button>
+            
           </div>
         }
       </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="summary-row total">
           <span>Total:</span>
-          <span>${{ cartService.getTotalPrice() | number:'1.1-2' }}</span>
+        
         </div>
         <button class="checkout-btn">Proceed to Checkout</button>
       </div>
