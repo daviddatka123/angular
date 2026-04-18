@@ -1,26 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { CartService } from '../../services/cart.service'; 
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-products-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl:'./products-cart.html',
-  styleUrl:'./products-cart.css'
+  imports: [CommonModule],
+  templateUrl: './products-cart.html', // დარწმუნდი რომ ფაილს ზუსტად ასე ჰქვია
+  styleUrl: './products-cart.css'
 })
 export class ProductsCartComponent {
-  constructor(public cartService: CartService) {}
+  public cartService = inject(CartService);
 
-  increaseQuantity(item: any) {
-    this.cartService.addToCart(item);
-  }
-
-  decreaseQuantity(item: any) {
-    // თუ სერვისში გაქვს მეთოდი quantity-სთვის, გამოიძახე ის
-    if (item.quantity > 1) {
-    } else {
-    }
+  // ფუნქციის სახელი ემთხვევა HTML-ს
+  onRemove(id: number) {
+    this.cartService.removeFromCart(id);
   }
 }

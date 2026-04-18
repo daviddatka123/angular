@@ -1,59 +1,28 @@
-import { Injectable, signal, inject, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../models/product.model';
+import { Injectable, signal, computed } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CartService {
-  items = signal<any[]>([]);
-  private http = inject(HttpClient);
-  private readonly API_BASE = 'https://restaurant.stepprojects.ge/api/Baskets';
+  private readonly API_URL = 'https://restaurant.stepprojects.ge/api/Baskets';
+  cartItems = signal<any[]>([]);
 
-  
+  totalPrice = computed(() => 
+    this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
+  );
 
-  // ავტომატურად დათვლილი ჯამი
-  totalPrice = computed(() => {
-    return this.items().reduce((total, item) => {
-      const price = item.product?.price || 0;
-      return total + (price * item.quantity);
-    }, 0);
-  });
-
-  constructor() {
-    this.loadCart();
-  }
+  constructor(private http: HttpClient) { this.loadCart(); }
 
   loadCart() {
-    this.http.get<any[]>(`${this.API_BASE}/GetAll`).subscribe({
-      next: (data) => this.items.set(data),
-      error: (err) => console.error('Error loading cart:', err)
-    });
+    this.http.get<any[]>(`${this.API_URL}/GetAll`).subscribe(items => this.cartItems.set(items));
   }
 
-  addToCart(product: Product) {
-    const existing = this.items().find(i => i.product.id === product.id);
-    
-    
-    const url = existing ? `${this.API_BASE}/UpdateBasket` : `${this.API_BASE}/AddToBasket`;
-    const method = existing ? 'PUT' : 'POST';
-    
-    const body = {
-      productId: product.id,
-      quantity: existing ? existing.quantity + 1 : 1
-    };
-
-    this.http.request(method, url, { body }).subscribe({
-      next: () => this.loadCart(),
-      error: (err) => console.error('Cart update error:', err)
-    });
+  addToCart(productId: number, price: number) {
+    this.http.post(`${this.API_URL}/AddToBasket`, { quantity: 1, price, productId })
+      .subscribe(() => this.loadCart());
   }
 
-
-  updateQuantity(productId: number, quantity: number) {
-    if (quantity <= 0) {
-      return;
-    }
-
+  removeFromCart(productId: number) {
+    this.http.delete(`${this.API_URL}/DeleteProduct/${productId}`)
+      .subscribe(() => this.loadCart());
   }
 }
