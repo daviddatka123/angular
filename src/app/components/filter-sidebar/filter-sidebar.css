@@ -1,58 +1,161 @@
 .filter-header {
+  background: #1a0c04;
+  padding: 1.1rem 1.4rem;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background: #2f3542;
-  color: #fff;
-  border-radius: 12px 12px 0 0;
-  font-weight: bold;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
 }
-
+ 
+.filter-header span:first-child {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #d4a853;
+  letter-spacing: 0.5px;
+}
+ 
+.filter-icon {
+  color: rgba(212, 168, 83, 0.5) !important;
+  font-size: 0.65rem !important;
+}
+ 
 .filter-body {
-  padding: 1.5rem;
   background: #fff;
-  border: 1px solid #f1f2f6;
-  border-radius: 0 0 12px 12px;
+  border: 1px solid #ede5d8;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
-
+ 
 .filter-label {
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #8a7968;
+  margin: 0;
 }
-
-/* Красивый слайдер */
+ 
+/* Spiciness slider */
 .red-slider {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
-  accent-color: #ff4757;
-  margin-bottom: 2rem;
+  height: 3px;
+  background: linear-gradient(to right, #c94a2c 0%, #c94a2c calc(var(--val, 50%)), #e8e0d5 calc(var(--val, 50%)), #e8e0d5 100%);
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
 }
-
+ 
+.red-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #c94a2c;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px #c94a2c, 0 2px 8px rgba(201, 74, 44, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+ 
+.red-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+ 
+/* Checkboxes */
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
 }
-
+ 
 .custom-checkbox {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #5a4e42;
+  letter-spacing: 0.3px;
 }
-
-/* Кнопки */
-.btn-reset, .btn-apply {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
+ 
+.custom-checkbox input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1.5px solid #c9b99a;
+  border-radius: 2px;
+  background: transparent;
   cursor: pointer;
-  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  position: relative;
 }
-
-.btn-reset { background: #f1f2f6; color: #57606f; }
-.btn-apply { background: #2f3542; color: #fff; }
-.btn-apply:hover { background: #ff4757; }
+ 
+.custom-checkbox input[type="checkbox"]:checked {
+  background: #1a0c04;
+  border-color: #1a0c04;
+}
+ 
+.custom-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 7px;
+  border: 1.5px solid #d4a853;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+ 
+/* Buttons */
+.btn-reset,
+.btn-apply {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+ 
+.btn-reset {
+  background: transparent;
+  border: 1px solid #e8e0d5;
+  color: #8a7968;
+}
+ 
+.btn-reset:hover {
+  border-color: #c9b99a;
+  color: #1a0c04;
+}
+ 
+.btn-apply {
+  background: #1a0c04;
+  border: 1px solid #1a0c04;
+  color: #d4a853;
+  margin-top: 0.2rem;
+}
+ 
+.btn-apply:hover {
+  background: #c94a2c;
+  border-color: #c94a2c;
+  color: #fff;
+  letter-spacing: 2.5px;
+}

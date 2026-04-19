@@ -1,0 +1,21 @@
+<main class="page-layout">
+  <header class="categories-bar">
+    <app-category-bar
+      [categories]="categories()"
+      [selectedId]="filter().categoryId"
+      (categorySelected)="onCategorySelected($event)" />
+  </header>
+
+  <div class="main-content-area">
+    <aside class="filter-sidebar">
+      <app-filter-sidebar
+        [filter]="filter()"
+        (filterChange)="onFilterChange($event)"
+        (reset)="onReset()" />
+    </aside>
+
+    <section class="products-section">
+      <app-product-list [products]="filteredProducts()"></app-product-list>
+    </section>
+  </div>
+</main>

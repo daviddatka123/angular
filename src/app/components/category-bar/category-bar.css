@@ -1,33 +1,45 @@
-.categories-container {
+:host {
   display: flex;
-  gap: 10px;
-  padding: 1.5rem 5%;
-  overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid rgba(26, 12, 4, 0.08);
 }
-
-.categories-container::-webkit-scrollbar { display: none; }
-
+ 
 .category-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   padding: 10px 24px;
-  border: 2px solid #f1f2f6;
-  background: #fff;
-  border-radius: 30px;
+  border: 1px solid #e8e0d5;
+  border-right: none;
+  background: transparent;
+  color: #8a7968;
   cursor: pointer;
-  white-space: nowrap;
-  font-weight: 600;
-  color: #747d8c;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
+  position: relative;
 }
-
-.category-btn:hover {
-  border-color: #ff4757;
-  color: #ff4757;
+ 
+.category-btn:first-child {
+  border-radius: 2px 0 0 2px;
 }
-
+ 
+.category-btn:last-child {
+  border-right: 1px solid #e8e0d5;
+  border-radius: 0 2px 2px 0;
+}
+ 
+.category-btn:hover:not(.active) {
+  background: #faf6f0;
+  color: #1a0c04;
+}
+ 
 .category-btn.active {
-  background: #ff4757;
-  border-color: #ff4757;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+  background: #1a0c04;
+  border-color: #1a0c04;
+  color: #d4a853;
+  z-index: 1;
 }

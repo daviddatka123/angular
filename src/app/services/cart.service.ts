@@ -6,7 +6,7 @@ export class CartService {
   private readonly API_URL = 'https://restaurant.stepprojects.ge/api/Baskets';
   cartItems = signal<any[]>([]);
 
-  totalPrice = computed(() => 
+  totalPrice = computed(() =>
     this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
   );
 
@@ -19,6 +19,26 @@ export class CartService {
   addToCart(productId: number, price: number) {
     this.http.post(`${this.API_URL}/AddToBasket`, { quantity: 1, price, productId })
       .subscribe(() => this.loadCart());
+  }
+
+  increaseQuantity(item: any) {
+    this.http.put(`${this.API_URL}/UpdateQuantity/${item.id}`, {
+      quantity: item.quantity + 1,
+      price: item.price,
+      productId: item.product.id
+    }).subscribe(() => this.loadCart());
+  }
+
+  decreaseQuantity(item: any) {
+    if (item.quantity <= 1) {
+      this.removeFromCart(item.product.id);
+      return;
+    }
+    this.http.put(`${this.API_URL}/UpdateQuantity/${item.id}`, {
+      quantity: item.quantity - 1,
+      price: item.price,
+      productId: item.product.id
+    }).subscribe(() => this.loadCart());
   }
 
   removeFromCart(productId: number) {

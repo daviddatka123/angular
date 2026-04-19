@@ -1,4 +1,20 @@
 /* Overall layout */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.products-section {
+  flex: 1;
+  min-width: 0;      /* ← ეს მთავარია! flex item-ს overflow-ს ადგენს */
+  overflow: hidden;
+}
+
 .page-layout { display: flex; flex-direction: column; min-height: 100vh; }
 
 /* Categories (top bar) */

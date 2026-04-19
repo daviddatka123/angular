@@ -1,22 +1,5 @@
 <app-header></app-header>
-
-<main class="page-layout">
-    <header class="categories-bar">
-      <app-category-bar 
-        [categories]="categories()" 
-        [selectedId]="filter().categoryId"
-        (categorySelected)="onCategorySelected($event)" />
-    </header>
-
-    <div class="main-content-area">
-     <aside class="filter-sidebar">
-  <app-filter-sidebar [filter]="filter()" ... />
-  <app-product-list [products]="filteredProducts()" />
-</aside>
-
-  <router-outlet></router-outlet>
-
-
+<router-outlet></router-outlet>
 <footer class="main-footer">
   <p>&copy; Step Ordering 2026, All rights reserved</p>
 </footer>

@@ -1,11 +1,50 @@
-<div class="cart-container">
-  @for (item of cartService.cartItems(); track item.id) {
-    <div class="cart-item">
-      <h4>{{ item.product.name }}</h4>
-      <p>{{ item.price }}₾ x {{ item.quantity }}</p>
-      <button (click)="onRemove(item.product.id)">წაშლა</button>
+<div class="cart-page">
+
+  <div class="cart-header">
+    <h2>Your <em>Order</em></h2>
+    <span class="item-count">{{ cartService.cartItems().length }} items</span>
+  </div>
+
+  @if (cartService.cartItems().length === 0) {
+    <div class="cart-empty">
+      <p>კალათა ცარიელია</p>
     </div>
   }
-  <hr>
-  <h3>ჯამი: {{ cartService.totalPrice() }}₾</h3>
+
+  <div class="cart-list">
+    @for (item of cartService.cartItems(); track item.id) {
+      <div class="cart-item">
+        <div class="item-image">
+          <img [src]="item.product.image" [alt]="item.product.name" />
+        </div>
+
+        <div class="item-info">
+          <h4>{{ item.product.name }}</h4>
+          <p class="item-unit-price">${{ item.price }} / ერთი</p>
+        </div>
+
+        <div class="item-controls">
+          <button class="qty-btn" (click)="onDecrease(item)">−</button>
+          <span class="qty-value">{{ item.quantity }}</span>
+          <button class="qty-btn" (click)="onIncrease(item)">+</button>
+        </div>
+
+        <div class="item-subtotal">
+          <span>${{ (item.price * item.quantity).toFixed(2) }}</span>
+          <button class="remove-btn" (click)="onRemove(item.product.id)">წაშლა</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (cartService.cartItems().length > 0) {
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>სულ:</span>
+        <strong>${{ cartService.totalPrice().toFixed(2) }}</strong>
+      </div>
+      <button class="btn-checkout">Checkout</button>
+    </div>
+  }
+
 </div>
