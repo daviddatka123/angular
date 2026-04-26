@@ -12,29 +12,26 @@
   }
 
   <div class="cart-list">
-    @for (item of cartService.cartItems(); track item.id) {
+    <div *ngFor="let item of cartService.cartItems(); trackBy: trackById">
       <div class="cart-item">
         <div class="item-image">
           <img [src]="item.product.image" [alt]="item.product.name" />
         </div>
-
         <div class="item-info">
           <h4>{{ item.product.name }}</h4>
           <p class="item-unit-price">${{ item.price }} / ერთი</p>
         </div>
-
         <div class="item-controls">
           <button class="qty-btn" (click)="onDecrease(item)">−</button>
           <span class="qty-value">{{ item.quantity }}</span>
           <button class="qty-btn" (click)="onIncrease(item)">+</button>
         </div>
-
         <div class="item-subtotal">
           <span>${{ (item.price * item.quantity).toFixed(2) }}</span>
           <button class="remove-btn" (click)="onRemove(item.product.id)">წაშლა</button>
         </div>
       </div>
-    }
+    </div>
   </div>
 
   @if (cartService.cartItems().length > 0) {

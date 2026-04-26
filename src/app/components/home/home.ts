@@ -13,46 +13,40 @@ import { ProductListComponent } from '../product-list/product-list';
   imports: [CommonModule, CategoryBarComponent, FilterSidebarComponent, ProductListComponent],
   templateUrl: './home.html',
 })
+
 export class HomeComponent implements OnInit {
   private categoryService = inject(CategoryService);
   private productService = inject(ProductService);
 
   filter = signal<ProductFilter>({
-    categoryId: null,
-    search: '',
-    spiciness: 0,
-    noNuts: false,
-    vegetarianOnly: false
+    categoryId: null, search: '', spiciness: 0, noNuts: false, vegetarianOnly: false
   });
 
   categories = signal<any[]>([]);
-  products = signal<any[]>([]);
-
-  filteredProducts = computed(() => {
-    const f = this.filter();
-    return this.products().filter(p => {
-      const categoryMatch = !f.categoryId || p.categoryId === f.categoryId;
-      const spicinessMatch = p.spiciness >= f.spiciness!;
-      const nutsMatch = !f.noNuts || !p.nuts;
-      const vegMatch = !f.vegetarianOnly || p.vegetarian;
-      return categoryMatch && spicinessMatch && nutsMatch && vegMatch;
-    });
-  });
+  products = signal<any[]>([]); 
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe(data => this.categories.set(data));
-    this.productService.getAll().subscribe(data => this.products.set(data));
+    this.loadProducts(); 
+  }
+
+  loadProducts() {
+    this.productService.getAll(this.filter())  // ✅ filter params-ს გადასცემს
+      .subscribe(data => this.products.set(data));
   }
 
   onCategorySelected(id: number | null) {
     this.filter.update(f => ({ ...f, categoryId: id }));
+    this.loadProducts(); 
   }
 
   onFilterChange(updatedFilter: ProductFilter) {
     this.filter.set(updatedFilter);
+    this.loadProducts(); 
   }
 
   onReset() {
     this.filter.set({ categoryId: null, search: '', spiciness: 0, noNuts: false, vegetarianOnly: false });
+    this.loadProducts(); 
   }
 }

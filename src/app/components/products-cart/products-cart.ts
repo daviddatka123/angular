@@ -12,6 +12,10 @@ import { CartService } from '../../services/cart.service';
 export class ProductsCartComponent {
   public cartService = inject(CartService);
 
+  trackById(index: number, item: any): number {
+    return item.id ?? index;
+  }
+
   onIncrease(item: any) {
     this.cartService.increaseQuantity(item);
   }

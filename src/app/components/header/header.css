@@ -76,3 +76,58 @@
   text-transform: uppercase;
   color: #d4a853;
 }
+
+/* ── 768px ── */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 4%;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .nav-links {
+    gap: 1.25rem;
+  }
+
+  .nav-item {
+    font-size: 0.75rem;
+    letter-spacing: 1.2px;
+  }
+
+  .cart-container {
+    padding: 7px 14px;
+  }
+
+  .cart-badge {
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+  }
+}
+
+/* ── 320px ── */
+@media (max-width: 320px) {
+  .header {
+    padding: 0 3%;
+    height: 52px;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .nav-item {
+    display: none;
+  }
+
+  .cart-container {
+    padding: 6px 10px;
+  }
+
+  .cart-badge {
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+  }
+}

@@ -43,3 +43,39 @@
   color: #d4a853;
   z-index: 1;
 }
+
+/* ── 768px ── */
+@media (max-width: 768px) {
+  :host {
+    padding: 1.25rem 0 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .category-btn {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    padding: 8px 16px;
+    border-right: 1px solid #e8e0d5;
+    border-radius: 2px !important;
+  }
+}
+
+/* ── 320px ── */
+@media (max-width: 320px) {
+  :host {
+    padding: 1rem 0.5rem 0.75rem;
+    gap: 5px;
+  }
+
+  .category-btn {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    padding: 7px 10px;
+    flex: 1 1 calc(50% - 5px);
+    text-align: center;
+    border-right: 1px solid #e8e0d5;
+    border-radius: 2px !important;
+  }
+}
