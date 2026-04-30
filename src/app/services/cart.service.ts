@@ -21,9 +21,21 @@ loadCart() {
 
 
   addToCart(productId: number, price: number) {
+  const existing = this.cartItems().find(item => item.product.id === productId);
+
+  if (existing) {
+
+    this.http.put(`${this.API_URL}/UpdateBasket`, {
+      quantity: existing.quantity + 1,
+      price: existing.price,
+      productId: productId
+    }).subscribe(() => this.loadCart());
+  } else {
+  
     this.http.post(`${this.API_URL}/AddToBasket`, { quantity: 1, price, productId })
       .subscribe(() => this.loadCart());
   }
+}
 
  increaseQuantity(item: any) {
   this.http.put(`${this.API_URL}/UpdateBasket`, {  // ✅ UpdateBasket
