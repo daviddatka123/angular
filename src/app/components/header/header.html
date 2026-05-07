@@ -6,9 +6,21 @@
 
   <nav class="nav-links">
     <a routerLink="/" class="nav-item">Home</a>
+
+    <!-- Logged OUT: Sign In + Register -->
+    <ng-container *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/sign-in" class="nav-item">Sign In</a>
+      <a routerLink="/register" class="btn-register">Register</a>
+    </ng-container>
+
+    <!-- Logged IN: Profile -->
+    <ng-container *ngIf="authService.isLoggedIn()">
+      <a routerLink="/profile" class="btn-register">Profile</a>
+    </ng-container>
+
     <div class="cart-container" routerLink="/cart">
       <div class="cart-badge">
-     <span>Cart ({{ cartService.cartItems().length }})</span>
+        <span>Cart ({{ cartService.cartItems().length }})</span>
       </div>
     </div>
   </nav>

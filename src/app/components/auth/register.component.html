@@ -1,0 +1,112 @@
+<div class="register-page">
+  <div class="register-card">
+
+    <div class="card-header">
+      <div class="logo">
+        <span class="step-text">Step</span>
+        <span class="ordering-text">Ordering</span>
+      </div>
+      <p class="subtitle">Create a new account</p>
+    </div>
+
+    <form class="register-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- First Name / Last Name -->
+      <div class="form-row">
+        <div class="field-group">
+          <label class="field-label">First Name</label>
+          <input class="field-input" formControlName="firstName" placeholder="John"
+                 [class.invalid]="isInvalid('firstName')">
+          <span class="error-msg" *ngIf="isInvalid('firstName')">First name is required</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Last Name</label>
+          <input class="field-input" formControlName="lastName" placeholder="Doe"
+                 [class.invalid]="isInvalid('lastName')">
+          <span class="error-msg" *ngIf="isInvalid('lastName')">Last name is required</span>
+        </div>
+      </div>
+
+      <!-- Age / Gender -->
+      <div class="form-row">
+        <div class="field-group">
+          <label class="field-label">Age</label>
+          <input class="field-input" type="number" formControlName="age" placeholder="25"
+                 [class.invalid]="isInvalid('age')">
+          <span class="error-msg" *ngIf="isInvalid('age')">Age must be 18 or older</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Gender</label>
+          <select class="field-input field-select" formControlName="gender"
+                  [class.invalid]="isInvalid('gender')">
+            <option value="" disabled>Select</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
+          </select>
+          <span class="error-msg" *ngIf="isInvalid('gender')">Gender is required</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="field-group">
+        <label class="field-label">Email</label>
+        <input class="field-input" type="email" formControlName="email"
+               placeholder="john@example.com" [class.invalid]="isInvalid('email')">
+        <span class="error-msg" *ngIf="isInvalid('email')">Please enter a valid email</span>
+      </div>
+
+      <!-- Password -->
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <input class="field-input" type="password" formControlName="password"
+               placeholder="Min. 8 characters" [class.invalid]="isInvalid('password')">
+        <span class="error-msg" *ngIf="isInvalid('password')">Password must be at least 8 characters</span>
+      </div>
+
+      <!-- Address -->
+      <div class="field-group">
+        <label class="field-label">Address</label>
+        <input class="field-input" formControlName="address" placeholder="123 Main St"
+               [class.invalid]="isInvalid('address')">
+        <span class="error-msg" *ngIf="isInvalid('address')">Address is required</span>
+      </div>
+
+      <!-- Phone / ZIP -->
+      <div class="form-row">
+        <div class="field-group">
+          <label class="field-label">Phone</label>
+          <input class="field-input" formControlName="phone" placeholder="+1 555 123 4567"
+                 [class.invalid]="isInvalid('phone')">
+          <span class="error-msg" *ngIf="isInvalid('phone')">Phone number is required</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">ZIP Code</label>
+          <input class="field-input" formControlName="zipcode" placeholder="10001"
+                 [class.invalid]="isInvalid('zipcode')">
+          <span class="error-msg" *ngIf="isInvalid('zipcode')">ZIP code is required</span>
+        </div>
+      </div>
+
+      <!-- API error -->
+      <div class="api-error" *ngIf="apiError">
+        <span>⚠ {{ apiError }}</span>
+      </div>
+
+      <!-- Success -->
+      <div class="api-success" *ngIf="successMsg">
+        <span>✓ {{ successMsg }}</span>
+      </div>
+
+      <button class="btn-submit" type="submit" [disabled]="loading">
+        {{ loading ? 'Loading...' : 'Register' }}
+      </button>
+
+      <p class="signin-link">
+        Already have an account?
+        <a routerLink="/sign-in">Sign in</a>
+      </p>
+
+    </form>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './filter-sidebar.css'
 })
 export class FilterSidebarComponent {
-  // საწყისი მნიშვნელობა გასწორებულია 0-ზე
+  // Initial values set to 0/false
   @Input() filter: any = { 
     categoryId: 0, 
     search: '', 

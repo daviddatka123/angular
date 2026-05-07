@@ -1,0 +1,59 @@
+<div class="signin-page">
+  <div class="signin-card">
+
+    <div class="card-header">
+      <div class="logo">
+        <span class="step-text">Step</span>
+        <span class="ordering-text">Ordering</span>
+      </div>
+      <p class="subtitle">Sign in to your account</p>
+    </div>
+
+    <form class="signin-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- Email -->
+      <div class="field-group">
+        <label class="field-label">Email</label>
+        <input class="field-input" type="email" formControlName="email"
+               placeholder="john@example.com"
+               [class.invalid]="isInvalid('email')">
+        <span class="error-msg" *ngIf="isInvalid('email')">Please enter a valid email</span>
+      </div>
+
+      <!-- Password -->
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <div class="password-wrapper">
+          <input class="field-input" [type]="showPassword ? 'text' : 'password'"
+                 formControlName="password"
+                 placeholder="Your password"
+                 [class.invalid]="isInvalid('password')">
+          <button type="button" class="toggle-password" (click)="showPassword = !showPassword">
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+        <span class="error-msg" *ngIf="isInvalid('password')">Password is required</span>
+      </div>
+
+      <!-- API Error -->
+      <div class="api-error" *ngIf="apiError">
+        <span>⚠ {{ apiError }}</span>
+      </div>
+
+      <!-- Success -->
+      <div class="api-success" *ngIf="successMsg">
+        <span>✓ {{ successMsg }}</span>
+      </div>
+
+      <button class="btn-submit" type="submit" [disabled]="loading">
+        {{ loading ? 'Signing in...' : 'Sign In' }}
+      </button>
+
+      <p class="register-link">
+        Don't have an account?
+        <a routerLink="/register">Register</a>
+      </p>
+
+    </form>
+  </div>
+</div>
